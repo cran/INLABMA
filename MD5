@@ -1,0 +1,16 @@
+58b5a31be1de57cdc0f52288f41f2ce7 *DESCRIPTION
+f020c8ee31d56f740bc604fff8032ee7 *NAMESPACE
+f171364133c0790037445f667eb152ec *R/BMArho.R
+d0b75e676c56057083378a069c337e5e *R/SE-utils.R
+3bc4c7925367430c20e9810613eb187d *R/leroux.R
+45e917cffc107c4ae7204797f2c844df *man/BMA2.Rd
+9668eccc417f9640be83e3c6065d6659 *man/BMArho.Rd
+9d0a2d3960c4900ff25de005d2b78157 *man/fitmarg.Rd
+e01ddd8f763c02bec7bb12a29f38c602 *man/fitmargBMA.Rd
+79e8118afaea4050c146e790a75f76ed *man/leroux.Rd
+98b442e9d2c0934facf6316af1192c09 *man/logprrho.Rd
+56e9b1cb8daa634e0ae3be54b04ffd3c *man/mysplinefun.Rd
+3bfc8a24734cf2bfe26578f58ad25c34 *man/recompute.impacts.Rd
+003a5250222c2089e7c33bb7371a0be9 *man/rescalemarg.Rd
+8de2c5bbfd226b7b9a5cf95672f0d5e5 *man/sem.Rd
+b79437efeb6bd63a53c18906f1b07b58 *man/trIrhoWinv.Rd
