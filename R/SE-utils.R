@@ -13,8 +13,11 @@
 
 sem.inla<-function(formula, d, W, rho, improve=TRUE, impacts=FALSE, fhyper=NULL, probit=FALSE,...)
 {
-	IrhoW<-diag(nrow(W))-rho*W
-	IrhoW2<-IrhoW%*%t(IrhoW)
+	require(INLA)
+
+	IrhoW<-Diagonal(nrow(W))-rho*W
+	#IrhoW2<-t(IrhoW)%*%IrhoW
+	IrhoW2<-Matrix::crossprod(IrhoW)
 
 	#environment(formula)<-environment()
 	#This is a fix to be able to use improve=TRUE later
@@ -40,7 +43,7 @@ sem.inla<-function(formula, d, W, rho, improve=TRUE, impacts=FALSE, fhyper=NULL,
 		res<-inla.rerun(res)#inla.hyperpar(res, diff.logdens=20)
 
 	#Compute log-determinat to correct the marginal-loglikelihood
-	res$logdet<-as.numeric(determinant(IrhoW2)$modulus)
+	res$logdet<-as.numeric(Matrix::determinant(IrhoW2)$modulus)
 	res$mlik<-res$mlik+res$logdet/2
 
 	#Add impacts as the marginals of the covariate coefficients
@@ -87,9 +90,11 @@ sem.inla<-function(formula, d, W, rho, improve=TRUE, impacts=FALSE, fhyper=NULL,
 slm.inla<-function(formula, d, W, rho, mmatrix=NULL, improve=TRUE, 
    impacts=FALSE, fhyper=NULL, probit=FALSE,...)
 {
+	require(INLA)
 
-	IrhoW<-diag(nrow(W))-rho*W
-	IrhoW2<-IrhoW%*%t(IrhoW)
+	IrhoW<-Diagonal(nrow(W))-rho*W
+	#IrhoW2<-t(IrhoW)%*%IrhoW
+	IrhoW2<-Matrix::crossprod(IrhoW)
 
         #environment(formula)<-environment()
         #This is a fix to be able to use improve=TRUE later
@@ -123,7 +128,7 @@ slm.inla<-function(formula, d, W, rho, mmatrix=NULL, improve=TRUE,
 		res<-inla.rerun(res)#inla.hyperpar(res, diff.logdens=20)
 
 	#Compute log-determinat to correct the marginal-loglikelihood
-	res$logdet<-as.numeric(determinant(IrhoW2)$modulus)
+	res$logdet<-as.numeric(Matrix::determinant(IrhoW2)$modulus)
 	res$mlik<-res$mlik+res$logdet/2
 
 	res$impacts<-FALSE
@@ -140,7 +145,7 @@ slm.inla<-function(formula, d, W, rho, mmatrix=NULL, improve=TRUE,
 		{
 		Df<-dnorm(res$summary.linear.predictor[,1])
 		wtotal<-mean(Df)*1/(1-rho)
-		wdirect<-trIrhoWinv(W, rho, Df=diag(Df))/nrow(W)
+		wdirect<-trIrhoWinv(W, rho, Df=Diagonal(x=Df))/nrow(W)
 		}
 		windirect<-wtotal-wdirect
 
@@ -180,8 +185,12 @@ slm.inla<-function(formula, d, W, rho, mmatrix=NULL, improve=TRUE,
 sdm.inla<-function(formula, d, W, rho, mmatrix=NULL, intercept=TRUE, 
    impacts=FALSE, improve=TRUE, fhyper=NULL, probit=FALSE, ...)
 {
-	IrhoW<-diag(nrow(W))-rho*W
-	IrhoW2<-IrhoW%*%t(IrhoW)
+
+	require(INLA)
+
+	IrhoW<-Diagonal(nrow(W))-rho*W
+	#IrhoW2<-t(IrhoW)%*%IrhoW
+	IrhoW2<-Matrix::crossprod(IrhoW)
 
         #environment(formula)<-environment()
         #This is a fix to be able to use improve=TRUE later
@@ -237,7 +246,7 @@ sdm.inla<-function(formula, d, W, rho, mmatrix=NULL, intercept=TRUE,
 		#FIXME: Update the following code
 		Df<-dnorm(res$summary.linear.predictor[,1])
                 wtotal<-mean(Df)*rep(1/(1-rho), 2)
-                wdirect<-c(trIrhoWinv(W, rho, Df=diag(Df)), trIrhoWinv(W, rho, 1, Df=diag(Df)))/nrow(W)
+                wdirect<-c(trIrhoWinv(W, rho, Df=Diagonal(x=Df)), trIrhoWinv(W, rho, 1, Df=Diagonal(x=Df)))/nrow(W)
 		}
                 windirect<-wtotal-wdirect
 
@@ -291,7 +300,7 @@ sdm.inla<-function(formula, d, W, rho, mmatrix=NULL, intercept=TRUE,
 		res<-inla.rerun(res)#inla.hyperpar(res, diff.logdens=20)
 
 	#Compute log-determinat to correct the marginal-loglikelihood
-	res$logdet<-as.numeric(determinant(IrhoW2)$modulus)
+	res$logdet<-as.numeric(Matrix::determinant(IrhoW2)$modulus)
 	res$mlik<-res$mlik+res$logdet/2
 
 	res$impacts<-FALSE
@@ -339,7 +348,7 @@ logprrho<-function(rho)
 #direct: User direct method, i.e., matrix multiplication, etc.
 #Df:Diagonal matrix used to compute the impacts in the Probit model
 #      only used if direct=TRUE.
-trIrhoWinv<-function(W, rho, offset=0, order=20, direct=TRUE, Df=diag(nrow(W)))
+trIrhoWinv<-function(W, rho, offset=0, order=20, direct=TRUE, Df=Diagonal(nrow(W)))
 {
 	if(!direct)
 	{
@@ -352,7 +361,7 @@ trIrhoWinv<-function(W, rho, offset=0, order=20, direct=TRUE, Df=diag(nrow(W)))
 	else
 	{
 		tr<-0
-		WW<-diag(nrow(W))
+		WW<-Diagonal(nrow(W))
 		if(offset>0)
 		{
 			for(i in 1:(offset))
@@ -361,7 +370,7 @@ trIrhoWinv<-function(W, rho, offset=0, order=20, direct=TRUE, Df=diag(nrow(W)))
 		WW=Df%*%WW
 		for(i in 0:order)
 		{
-			tr<-tr+sum(diag(WW))*(rho^i)
+			tr<-tr+sum(Matrix::diag(WW))*(rho^i)
 			WW<-WW%*%W
 		}
 	}
