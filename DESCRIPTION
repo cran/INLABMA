@@ -1,6 +1,6 @@
 Package: INLABMA
-Version: 0.1-4
-Date: 2014-04-14
+Version: 0.1-5
+Date: 2014-07-01
 Encoding: latin1
 Title: Bayesian Model Averaging with INLA
 Author: Virgilio Gomez Rubio <virgilio.gomez@uclm.es>, Roger Bivand <Roger.Bivand@nhh.no>
@@ -14,7 +14,7 @@ Description: Spatial Econometrics models using Bayesian Model Averaging
  downloaded by running:
   source("http://www.math.ntnu.no/inla/givemeINLA-testing.R")
 License: GPL (>= 2)
-Packaged: 2014-04-15 15:01:16 UTC; virgil
+Packaged: 2014-07-03 14:46:36 UTC; virgil
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2014-04-15 18:44:31
+Date/Publication: 2014-07-09 09:22:35
