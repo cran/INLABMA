@@ -73,7 +73,14 @@ the variance-covariance matrix of the error term or random effects.
 An \code{inla} object.
 }
 \references{
-Bivand et al. (2013).
+  Roger S. Bivand, Virgilio Gómez-Rubio, Håvard Rue (2014). Approximate 
+  Bayesian inference for spatial econometrics models. Spatial Statistics, 
+  Volume 9, 146-165.
+
+  Roger S. Bivand, Virgilio Gómez-Rubio, Håvard Rue (2015). Spatial
+  Data Analysis with R-INLA with Some Extensions. Journal of
+  Statistical Software, 63(20), 1-31. URL http://www.jstatsoft.org/v63/i20/.
+
 }
 \author{
 Virgilio Gómez-Rubio <virgilio.gomez@uclm.es>
@@ -89,7 +96,11 @@ Virgilio Gómez-Rubio <virgilio.gomez@uclm.es>
 %Example taken from the spdep::columbus manual page
 \examples{
 
-\dontrun{require(spdep)
+\dontrun{
+
+if(requireNamespace("INLA", quietly = TRUE)) {
+require(INLA)
+require(spdep)
 
 data(columbus)
 
@@ -116,6 +127,8 @@ form<- CRIME ~ INC + HOVAL
 
 zero.variance = list(prec=list(initial = 25, fixed=TRUE))
 
+
+
 seminla<-mclapply(rrho, function(rho){
 
                 sem.inla(form, d=columbus, W=W, rho=rho,
@@ -123,8 +136,8 @@ seminla<-mclapply(rrho, function(rho){
                         control.family = list(hyper = zero.variance),
                         control.predictor=list(compute=TRUE),
                         control.compute=list(dic=TRUE, cpo=TRUE),
-                        control.inla=list(print.joint.hyper=TRUE, 
-				tolerance=1e-20, h=1e-6),
+                        control.inla=list(print.joint.hyper=TRUE), 
+				#tolerance=1e-20, h=1e-6),
 			verbose=FALSE
                 )
 
@@ -139,8 +152,8 @@ slminla<-mclapply(rrho, function(rho){
                         control.family = list(hyper = zero.variance),
                         control.predictor=list(compute=TRUE),
                         control.compute=list(dic=TRUE, cpo=TRUE),
-                        control.inla=list(print.joint.hyper=TRUE, 
-				tolerance=1e-20, h=1e-6),
+                        control.inla=list(print.joint.hyper=TRUE), 
+				#tolerance=1e-20, h=1e-6),
 			verbose=FALSE
                 )
 })
@@ -153,8 +166,8 @@ sdminla<-mclapply(rrho, function(rho){
                         control.family = list(hyper = zero.variance),
                         control.predictor=list(compute=TRUE),
                         control.compute=list(dic=TRUE, cpo=TRUE),
-                        control.inla=list(print.joint.hyper=TRUE, 
-				tolerance=1e-20, h=1e-6),
+                        control.inla=list(print.joint.hyper=TRUE), 
+				#tolerance=1e-20, h=1e-6),
 			verbose=FALSE
                 )
 })
@@ -175,6 +188,8 @@ abline(v=colslmml$rho, col="red", lty=2)
 abline(v=colsdmml$rho, col="red", lty=3)
 #Legend
 legend(-1,5, c("SEM", "SLM", "SDM"), lty=1:3)
+}
+
 }
 
 }

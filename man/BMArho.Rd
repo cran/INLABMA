@@ -48,4 +48,16 @@ Virgilio Gómez-Rubio <virgilio.gomez@uclm.es>
 %%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
+
+\references{
+  Roger S. Bivand, Virgilio Gómez-Rubio, Håvard Rue (2014). Approximate 
+  Bayesian inference for spatial econometrics models. Spatial Statistics, 
+  Volume 9, 146-165.
+
+  Roger S. Bivand, Virgilio Gómez-Rubio, Håvard Rue (2015). Spatial
+  Data Analysis with R-INLA with Some Extensions. Journal of
+  Statistical Software, 63(20), 1-31. URL http://www.jstatsoft.org/v63/i20/.
+}
+
+
 \keyword{smooth}

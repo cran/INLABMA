@@ -229,6 +229,9 @@ BMArho<-function(models, rho, logrhoprior=rep(1, length(rho)) )
 #
 INLABMA<-function(models, rho, logrhoprior=rep(1, length(rho)), impacts=FALSE, usenormal=FALSE )
 {
+
+	#require(INLA)
+
 	mlik<-unlist(lapply(models, function(X){X$mlik[1]}))
 	post.func<-fitmarg(rho, mlik, logrhoprior, usenormal)
 
@@ -255,7 +258,7 @@ INLABMA<-function(models, rho, logrhoprior=rep(1, length(rho)), impacts=FALSE, u
 	#names(mfit$rho$quantiles)<-as.character(qvect)
 
 	#Summary statistics
-	margsum<-inla.zmarginal(mfit$rho$marginal, TRUE)
+	margsum <- INLA::inla.zmarginal(mfit$rho$marginal, TRUE)
 	mfit$rho$mean<-margsum$mean
 	mfit$rho$sd<-margsum$sd
 	mfit$rho$quantiles<-unlist(margsum[-c(1:2)])
