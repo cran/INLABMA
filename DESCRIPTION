@@ -1,20 +1,20 @@
 Package: INLABMA
-Version: 0.1-11
-Date: 2018-07-26
-Encoding: latin1
+Version: 0.1-12
+Date: 2023-11-17
+Encoding: UTF-8
 Title: Bayesian Model Averaging with INLA
-Author: Virgilio Gómez-Rubio <virgilio.gomez@uclm.es>, Roger Bivand <Roger.Bivand@nhh.no>
-Maintainer: Virgilio Gómez-Rubio <virgilio.gomez@uclm.es>
+Author: Virgilio GÃ³mez-Rubio <virgilio.gomez@uclm.es>, Roger Bivand <Roger.Bivand@nhh.no>
+Maintainer: Virgilio GÃ³mez-Rubio <virgilio.gomez@uclm.es>
 Depends: R(>= 2.15.0), parallel, sp
-Imports: Matrix, spdep
+Imports: Matrix, spdep, methods
 Suggests: INLA
 Description: Fit Spatial Econometrics models using Bayesian model averaging 
   on models fitted with INLA. The INLA package can be obtained from 
-  <http://www.r-inla.org>. 
+  <https://www.r-inla.org>. 
 License: GPL (>= 2)
 Additional_repositories: https://inla.r-inla-download.org/R/stable/
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2018-07-26 08:37:52 UTC; virgiliogomezgislab
+Packaged: 2023-11-17 20:54:25 UTC; virgil
 Repository: CRAN
-Date/Publication: 2018-07-26 22:10:06 UTC
+Date/Publication: 2023-11-18 14:20:05 UTC
